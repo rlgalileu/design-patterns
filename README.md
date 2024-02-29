@@ -77,3 +77,114 @@ public class Main {
 ```
 
 Neste exemplo, **AnimalFactory** é a classe que contém o **_Factory Method_** _createAnimal_, que cria instâncias de **Animal** com base no tipo fornecido como parâmetro. O cliente pode usar o **_Factory Method_** para obter a instância desejada sem precisar conhecer os detalhes de implementação das classes concretas Dog e Cat.
+
+### Abstract Factory
+
+O Abstract Factory é outro padrão de design creacional que fornece uma interface para criar famílias de objetos relacionados ou dependentes sem especificar suas classes concretas. Vamos criar um exemplo simples em Java para ilustrar o Abstract Factory:
+
+Suponha que tenhamos dois tipos de animais, **Dog** e **Cat**, e para cada tipo, temos diferentes raças, como GoldenRetriever, Poodle para cães e Siamese, Persian para gatos. Vamos criar interfaces e classes concretas para representar esses objetos e, em seguida, uma fábrica abstrata chamada **AnimalFactory**:
+
+```java
+// Interfaces para animais
+interface Animal {
+    void makeSound();
+}
+
+interface Dog extends Animal {
+    void bark();
+}
+
+interface Cat extends Animal {
+    void meow();
+}
+
+// Implementações concretas para cães
+class GoldenRetriever implements Dog {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof! Woof!");
+    }
+
+    @Override
+    public void bark() {
+        System.out.println("Barking loudly!");
+    }
+}
+
+class Poodle implements Dog {
+    @Override
+    public void makeSound() {
+        System.out.println("Woof!");
+    }
+
+    @Override
+    public void bark() {
+        System.out.println("Barking softly.");
+    }
+}
+
+// Implementações concretas para gatos
+class Siamese implements Cat {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow!");
+    }
+
+    @Override
+    public void meow() {
+        System.out.println("Meowing gracefully.");
+    }
+}
+
+class Persian implements Cat {
+    @Override
+    public void makeSound() {
+        System.out.println("Meow! Meow!");
+    }
+
+    @Override
+    public void meow() {
+        System.out.println("Meowing lazily.");
+    }
+}
+
+// Abstract Factory para criar famílias de animais
+interface AnimalFactory {
+    Dog createDog();
+    Cat createCat();
+}
+
+// Concrete Factory para criar famílias específicas de animais
+class DomesticAnimalFactory implements AnimalFactory {
+    @Override
+    public Dog createDog() {
+        return new Poodle(); // Podemos escolher qualquer implementação de Dog
+    }
+
+    @Override
+    public Cat createCat() {
+        return new Persian(); // Podemos escolher qualquer implementação de Cat
+    }
+}
+
+// Exemplo de uso
+public class Main {
+    public static void main(String[] args) {
+        // Criando uma fábrica abstrata para animais domésticos
+        AnimalFactory animalFactory = new DomesticAnimalFactory();
+
+        // Criando animais usando a fábrica abstrata
+        Dog dog = animalFactory.createDog();
+        Cat cat = animalFactory.createCat();
+
+        // Chamando métodos específicos de cada animal
+        dog.makeSound(); // Saída: Woof!
+        dog.bark();      // Saída: Barking softly.
+
+        cat.makeSound(); // Saída: Meow! Meow!
+        cat.meow();      // Saída: Meowing lazily.
+    }
+}
+```
+Neste exemplo, **AnimalFactory** é a fábrica abstrata que declara métodos para criar famílias de objetos relacionados (Dog e Cat). **DomesticAnimalFactory** é uma implementação concreta dessa fábrica que cria objetos específicos (Poodle e Persian). O cliente pode usar a fábrica abstrata para criar instâncias de animais sem conhecer suas classes concretas.
+
