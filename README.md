@@ -231,3 +231,40 @@ Neste exemplo, a classe **Singleton** possui um campo estático privado chamado 
 
 Esse padrão é útil quando você precisa garantir que exista apenas uma instância de uma classe em todo o sistema, como em casos de configurações únicas, gerenciadores de log ou conexões de banco de dados.
 
+### Monostate
+
+O Monostate é um padrão de design que permite que várias instâncias de uma classe compartilhem o mesmo estado, independentemente de como foram criadas. O estado é mantido como um estado de classe e não de instância, tornando todas as instâncias da classe indistinguíveis em termos de estado interno. Vamos criar um exemplo simples em Java para ilustrar o padrão Monostate:
+
+```java
+public class MonostateExample {
+
+    // Campo estático para armazenar o estado compartilhado
+    private static String sharedState;
+
+    // Método estático para acessar o estado compartilhado
+    public static String getSharedState() {
+        return sharedState;
+    }
+
+    // Método estático para modificar o estado compartilhado
+    public static void setSharedState(String state) {
+        sharedState = state;
+    }
+
+    public static void main(String[] args) {
+        // Criando instâncias da classe
+        MonostateExample instance1 = new MonostateExample();
+        MonostateExample instance2 = new MonostateExample();
+
+        // Modificando o estado através da primeira instância
+        instance1.setSharedState("State from instance 1");
+
+        // Acessando o estado através da segunda instância
+        System.out.println(instance2.getSharedState());  // Saída: State from instance 1
+    }
+}
+```
+
+Neste exemplo, **MonostateExample** possui um campo estático _sharedState_ que armazena o estado compartilhado. Os métodos _getSharedState()_ e _setSharedState()_ são estáticos, permitindo que todas as instâncias da classe acessem e modifiquem o mesmo estado. Assim, quando você cria várias instâncias e modifica o estado através de uma delas, todas as instâncias refletem o mesmo estado compartilhado.
+
+Embora o **Monostate** seja uma abordagem interessante, é importante notar que pode ser menos intuitivo do que o Singleton e pode levar a confusões se não for usado com cuidado. O **Singleton**, com uma única instância controlada globalmente, é geralmente preferido quando o objetivo é garantir que haja apenas uma instância da classe em todo o sistema.
