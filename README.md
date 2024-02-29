@@ -188,3 +188,46 @@ public class Main {
 ```
 Neste exemplo, **AnimalFactory** é a fábrica abstrata que declara métodos para criar famílias de objetos relacionados (Dog e Cat). **DomesticAnimalFactory** é uma implementação concreta dessa fábrica que cria objetos específicos (Poodle e Persian). O cliente pode usar a fábrica abstrata para criar instâncias de animais sem conhecer suas classes concretas.
 
+### Singleton
+
+O Singleton é um padrão de design creacional que garante que uma classe tenha apenas uma instância e fornece um ponto global de acesso a essa instância. Aqui está um exemplo simples em Java de como você pode implementar o padrão Singleton:
+
+```java
+public class Singleton {
+
+    // O campo que armazena a única instância da classe
+    private static Singleton instance;
+
+    // Construtor privado para evitar a criação de instâncias diretamente
+    private Singleton() {
+        // Inicialização da instância
+    }
+
+    // Método público para obter a única instância da classe
+    public static Singleton getInstance() {
+        // Se a instância ainda não foi criada, criamos uma
+        if (instance == null) {
+            instance = new Singleton();
+        }
+
+        // Retornamos a instância existente
+        return instance;
+    }
+
+    // Outros métodos da classe Singleton
+    public void doSomething() {
+        System.out.println("Singleton instance is doing something.");
+    }
+
+    public static void main(String[] args) {
+        // Usando a instância Singleton
+        Singleton singletonInstance = Singleton.getInstance();
+        singletonInstance.doSomething();
+    }
+}
+```
+
+Neste exemplo, a classe **Singleton** possui um campo estático privado chamado instance que armazena a única instância da classe. O construtor da classe é privado para evitar a criação de instâncias diretamente fora da classe. O método estático _getInstance()_ é usado para obter a única instância da classe. Se a instância ainda não foi criada, ela é criada no momento da chamada a _getInstance()_. Se a instância já existe, a mesma instância é retornada.
+
+Esse padrão é útil quando você precisa garantir que exista apenas uma instância de uma classe em todo o sistema, como em casos de configurações únicas, gerenciadores de log ou conexões de banco de dados.
+
